@@ -1,0 +1,23 @@
+---
+import searchIcon from "../assets/search.png";
+---
+
+<div class="relative">
+  <input
+    type="text"
+    placeholder="Find Your Coffee..."
+    class="w-full p-5 pl-14 bg-[#141921] rounded-3xl focus:outline-none text-sm"
+  />
+  <span class="absolute left-4 top-1/2 transform -translate-y-1/2">
+    <img src={searchIcon.src} alt="Search" class="h-7 w-7 text-gray-400" />
+  </span>
+</div>
+
+<style>
+  .relative {
+    position: relative;
+  }
+  .absolute {
+    position: absolute;
+  }
+</style>

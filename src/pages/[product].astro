@@ -1,0 +1,50 @@
+---
+import Layout from "../layouts/Layout.astro";
+import image from "../assets/image.png";
+import Order from "../components/OrderComponent/Order";
+export async function getStaticPaths() {
+  return [
+    { params: { product: "capuchino" } },
+    { params: { product: "latte" } },
+    { params: { product: "americano" } },
+  ];
+}
+
+const { product } = Astro.params;
+---
+
+<Layout title="Sản phẩm" description="Chi tiết sản phẩm">
+  <div>
+    <div class="relative">
+      <img
+        src={image.src}
+        alt="Product Image"
+        class="w-full h-auto rounded-2xl"
+      />
+      <div
+        class="absolute bottom-0 w-full left-0 bg-[#00000081] text-white p-4 rounded-tl-3xl"
+      >
+        <h1 class="text-3xl font-bold mb-2 capitalize">{product}</h1>
+        <p class="text-xs tracking-wide">With Steamed Milk{product}.</p>
+
+        <div
+          class="flex items-center py-1 rounded-full rounded-lr-none rounded-br-none"
+        >
+          <span class="text-[#D17842] font-bold text-lg mr-1">★</span>
+          <span class="text-white text-lg">{4}</span>
+        </div>
+      </div>
+    </div>
+    <div class="rounded-b-3xl">
+      <div class="py-5 flex flex-col gap-2">
+        <p class="text-[#AEAEAE] text-sm font-normal">Description</p>
+        <p class="text-xs">
+          Cappuccino is a latte made with more foam than steamed milk, often
+          with a sprinkle of cocoa powder or cinnamon on top.
+        </p>
+      </div>
+    </div>
+
+    <Order client:load />
+  </div>
+</Layout>
