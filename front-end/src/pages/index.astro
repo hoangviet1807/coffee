@@ -1,0 +1,20 @@
+---
+import Layout from "../layouts/Layout.astro";
+import Options from "../components/HomePageComponent/Options";
+import { sanityClient } from "sanity:client";
+// import Input from "../components/Input.astro";
+
+const homepageData = await sanityClient.fetch(`*[_type=="product"]`);
+
+console.log("homepageData", homepageData);
+---
+
+<Layout title="Drinking" description="Des">
+  <div class="flex flex-col gap-6 py-5">
+    <h2 class="text-[28px] font-semibold leading-[36px] self-center">
+      Find the best <br /> coffee for you
+    </h2>
+    <!-- <Input /> -->
+    <Options client:load />
+  </div>
+</Layout>
