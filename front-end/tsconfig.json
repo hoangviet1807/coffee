@@ -2,7 +2,7 @@
   "extends": "astro/tsconfigs/strict",
   "include": [".astro/types.d.ts", "**/*", "src"],
   "exclude": ["dist"],
-   "compilerOptions": {
+  "compilerOptions": {
     "target": "es6",
     "lib": ["dom", "dom.iterable", "esnext"],
     "allowJs": true,
@@ -17,7 +17,10 @@
     "resolveJsonModule": true,
     "isolatedModules": true,
     "noEmit": true,
-    "jsx": "react-jsx"
-  },
-
+    "jsx": "react-jsx",
+    "baseUrl": ".",
+    "paths": {
+      "@/*": ["./src/*"]
+    }
+  }
 }

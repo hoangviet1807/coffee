@@ -1,0 +1,25 @@
+---
+import IntroBlock from "./IntroComponent.astro";
+import ProductBlock from "./ProductComponent.astro";
+import TextBlock from "./TextComponent.astro";
+
+const { blocks } = Astro.props;
+---
+
+{
+  blocks.map((block) => {
+    switch (block._type) {
+      case "introBlock":
+        return <IntroBlock {...block} />;
+
+      case "productBlock":
+        return <ProductBlock {...block} />;
+
+      case "textBlock":
+        return <TextBlock {...block} />;
+
+      default:
+        return null;
+    }
+  })
+}

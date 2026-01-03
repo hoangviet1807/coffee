@@ -4,15 +4,14 @@ export default defineType({
   name: 'homePage',
   title: 'Homepage',
   type: 'document',
-
   fields: [
     defineField({
       type: 'object',
-      name: 'heroCarousel',
-      title: 'Hero carousel',
+      name: 'banner',
+      title: 'Banner',
       fields: [
         {
-          name: 'slides',
+          name: 'images',
           type: 'array',
           of: [
             {
@@ -34,7 +33,16 @@ export default defineType({
       title: 'Page blocks',
       type: 'array',
       of: [
-        // HERO CAROUSEL
+        // INTRO BLOCK
+        {
+          type: 'object',
+          name: 'introBlock',
+          title: 'Intro block',
+          fields: [
+            {name: 'image', type: 'image', options: {hotspot: true}},
+            {name: 'text', type: 'array', of: [{type: 'block'}]},
+          ],
+        },
 
         // TEXT BLOCK
         {
@@ -42,8 +50,10 @@ export default defineType({
           name: 'textBlock',
           title: 'Text block',
           fields: [
-            {name: 'title', type: 'string'},
-            {name: 'text', type: 'text'},
+            {name: 'image', type: 'image', options: {hotspot: true}},
+            {name: 'text', type: 'array', of: [{type: 'block'}]},
+            {name: 'buttonText', type: 'string'},
+            {name: 'buttonLink', type: 'string'},
           ],
         },
 
@@ -54,6 +64,7 @@ export default defineType({
           title: 'Product block',
           fields: [
             {name: 'title', type: 'string'},
+
             {
               name: 'products',
               type: 'array',

@@ -7,5 +7,6 @@ export const structure = (S: StructureBuilder) =>
       S.listItem()
         .title('Homepage')
         .id('homePage')
-        .child(S.document().schemaType('homePage').documentId('homePage')),
+        .child(S.document().schemaType('homePage').documentId('homePage'))
+        .title('Homepage'),
     ])
