@@ -1,0 +1,44 @@
+---
+import Layout from "@/layouts/Layout.astro";
+import { sanityClient } from "@/lib/sanityClient";
+import Carousel from "../../components/ProductPageComponent/Carousel";
+import InfoProduct from "../../components/ProductPageComponent/InfoProduct";
+export async function getStaticPaths() {
+  const products = await sanityClient.fetch(`
+    *[_type == "product"]{
+      "slug": slug.current
+    }
+  `);
+
+  return products.map((p) => ({
+    params: { slug: p.slug },
+  }));
+}
+
+const { slug } = Astro.params;
+
+const product = await sanityClient.fetch(
+  `*[_type == "product" && slug.current == $slug][0]{
+    ...,
+    imagesProduct[] {
+      ...,
+      asset->{
+        url
+      }
+    }
+  }`,
+  { slug }
+);
+---
+
+<Layout title="Product" description="Des">
+  <section class="md:container px-5 py-10 m-auto gap-10 flex flex-col">
+    <div class="flex flex-col md:flex-row gap-10">
+      <div class="flex-1">
+        <Carousel data={product.imagesProduct} client:load />
+      </div>
+
+      <InfoProduct product={product} client:load />
+    </div>
+  </section>
+</Layout>

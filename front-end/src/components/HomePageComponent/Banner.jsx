@@ -6,6 +6,7 @@ import {
   NextButton,
   usePrevNextButtons,
 } from "../EmblaCarousel/ArrowButton";
+import EmblaControl from "../EmblaCarousel/EmblaControl";
 useEmblaCarousel.globalOptions = { loop: true };
 export default function Banner({ data }) {
   const [emblaRef, emblaApi] = useEmblaCarousel({ align: "start" });
@@ -22,9 +23,9 @@ export default function Banner({ data }) {
   } = usePrevNextButtons(emblaApi);
 
   return (
-    <div className="relative">
+    <div className="md:relative">
       <div className="embla" ref={emblaRef}>
-        <div className="embla__container relative">
+        <div className="embla__container md:relative">
           {images.map((value, index) => (
             <div className="embla__slide relative" key={index}>
               <img
@@ -32,7 +33,7 @@ export default function Banner({ data }) {
                 className="object-cover aspect-video max-h-screen w-full"
                 alt={`Slide ${index + 1}`}
               />
-              <div className="absolute bottom-1/2 left-5  w-2/5 p-5 bg-[#ffffffb3] minx-w-[350px] flex flex-col gap-4">
+              <div className="md:absolute md:bottom-1/2 md:left-5  md:w-2/5 p-5 bg-[#ffffffb3] w-full flex flex-col gap-4">
                 <p className="text-xl font-medium">{value.title}</p>
                 <p>{value.subtitle}</p>
                 <a
@@ -45,32 +46,16 @@ export default function Banner({ data }) {
             </div>
           ))}
         </div>
-        <div className="embla__controls">
-          <div className="embla__buttons">
-            <PrevButton
-              className="absolute left-10 bottom-10 z-10 place-items-center w-10 h-10 border rounded-full bg-white"
-              onClick={onPrevButtonClick}
-              disabled={prevBtnDisabled}
-            />
-            <NextButton
-              className="absolute right-10 bottom-10 z-10 place-items-center  w-10 h-10 border rounded-full bg-white"
-              onClick={onNextButtonClick}
-              disabled={nextBtnDisabled}
-            />
-          </div>
-
-          <div className="embla__dots absolute bottom-10 left-1/2 -translate-x-1/2">
-            {scrollSnaps.map((_, index) => (
-              <DotButton
-                key={index}
-                onClick={() => onDotButtonClick(index)}
-                className={"embla__dot".concat(
-                  index === selectedIndex ? " embla__dot--selected" : ""
-                )}
-              />
-            ))}
-          </div>
-        </div>
+        <EmblaControl
+          emblaApi={emblaApi}
+          prevClassName={
+            "absolute left-10 bottom-20 z-10 border rounded-full bg-white p-2"
+          }
+          nextClassName={
+            "absolute right-10 bottom-20 z-10 border rounded-full bg-white p-2"
+          }
+          dotClassName={"absolute bottom-20 left-1/2 -translate-x-1/2"}
+        />
       </div>
     </div>
   );

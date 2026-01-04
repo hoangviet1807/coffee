@@ -1,7 +1,29 @@
 ---
-const { content } = Astro.props;
+import { urlFor } from "@/lib/sanityImage";
+import PortableTextBlock from "../PortableText";
+
+const { buttonLink, buttonText, image, text } = Astro.props;
 ---
 
-<section class="prose mx-auto py-12">
-  <p>{content}</p>
+<section class="md:relative flex flex-col">
+  <img
+    src={urlFor(image).url()}
+    class="object-cover aspect-video max-h-screen w-full"
+    alt={`img`}
+  />
+  <div
+    class="w-full flex flex-col gap-4 md:absolute md:top-1/2 md:-translate-y-1/2 md:left-5 md:w-2/5 p-5 bg-[#ffffffb3]"
+  >
+    <div
+      class="prose max-w-none prose-h2:my-3 prose-h3:text-2xl prose-p:text-base prose-p:prose-a:mt-5"
+    >
+      <PortableTextBlock value={text} />
+    </div>
+    <a
+      href={buttonLink}
+      class="bg-[#575756] py-2 max-w-1/2 text-white text-center"
+    >
+      {buttonText}
+    </a>
+  </div>
 </section>

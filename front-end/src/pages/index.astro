@@ -4,12 +4,26 @@ import { sanityClient } from "sanity:client";
 import Banner from "@/components/HomePageComponent/Banner";
 import DynamicBlocks from "@/components/DynamicComponent/DynamicBlock.astro";
 
-const homepageData = await sanityClient.fetch(`*[_type=="homePage"][0]`);
+const homepageData = await sanityClient.fetch(`*[_type == "homePage"][0]{
+  ...,
+  blocks[]{
+    ...,
+    _type == "productBlock" => {
+      ...,
+      products[]->{
+        name,
+        slug,
+        "minPrice": sizes[0].price,
+        "image": image.asset->url
+      }
+    }
+  }
+}`);
 ---
 
 <Layout title="Drinking" description="Des">
   <div>
-    <Banner data={homepageData.banner} client:only="react" />
+    <Banner data={homepageData.banner} client:load />
     <DynamicBlocks blocks={homepageData.blocks} />
     <!-- <Input /> -->
     <!-- <Options client:load /> -->

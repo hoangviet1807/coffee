@@ -5,7 +5,9 @@ import PortableTextBlock from "../PortableText/index.jsx";
 const data = Astro.props;
 ---
 
-<section class="container m-auto grid grid-cols-1 md:grid-cols-2 gap-5">
+<section
+  class="md:container px-5 py-10 m-auto grid grid-cols-1 md:grid-cols-2 gap-5"
+>
   <div>
     <img
       src={urlFor(data.image).url()}

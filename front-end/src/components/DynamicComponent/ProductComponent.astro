@@ -1,18 +1,30 @@
 ---
-const { title, products } = Astro.props;
+import { urlFor } from "@/lib/sanityImage";
+const { products, title } = Astro.props;
 ---
 
-<section class="py-16">
-  <h2 class="mb-8 text-3xl font-semibold">{title}</h2>
-
-  <div class="grid grid-cols-2 md:grid-cols-4 gap-6">
+<section class="md:container px-5 py-10 m-auto gap-10 flex flex-col">
+  <h2 class="text-2xl pt-10 font-light text-center">{title}</h2>
+  <hr class="-mt-2" />
+  <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-5">
     {
-      products.map((p) => (
-        <div class="rounded-lg border p-4">
-          <img src={p.image} alt={p.name} class="mb-3 rounded" />
-          <h3 class="font-medium">{p.name}</h3>
-          <p class="text-sm text-gray-500">${p.price}</p>
-        </div>
+      products.map((product: any) => (
+        <a
+          href={"/products/" + product.slug.current}
+          class="flex flex-col gap-4"
+        >
+          <img
+            src={urlFor(product.image).url()}
+            alt={product.name}
+            class="mx-auto aspect-square max-w-full h-auto"
+          />
+          <div class="flex-1 flex flex-col justify-between">
+            <h3 class="text-lg mb-2 text-[#a38c6d]">{product.name}</h3>
+            <span class="font-light text-[#646464]">
+              From {product.minPrice} VNĐ
+            </span>
+          </div>
+        </a>
       ))
     }
   </div>
